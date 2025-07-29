@@ -1,0 +1,106 @@
+/* ====== Estilo Tabla Listado de Pagos ====== */
+.container {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+}
+
+h2 {
+    color: #004481;
+    /* azul Banco Guayaquil */
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f7f9fc;
+    /* claro elegante */
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #004481;
+    /* azul Banco Guayaquil */
+    color: white;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+thead th,
+tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dfe6ec;
+}
+
+tbody tr:hover {
+    background-color: #e8f0fe;
+    cursor: pointer;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.text-muted {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.filtros-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.filtros-container>div {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+input[type="date"],
+select {
+    padding: 6px 8px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: border-color 0.3s ease;
+}
+
+input[type="date"]:focus,
+select:focus {
+    border-color: #004481;
+    outline: none;
+}
+
+button.limpiar-filtros {
+    background-color: #6c757d;
+    /* gris neutro */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+button.limpiar-filtros:hover {
+    background-color: #5a6268;
+    /* tono más oscuro en hover */
+}

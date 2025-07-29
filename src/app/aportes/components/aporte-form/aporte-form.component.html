@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Registrar Aporte</h2>
+
+    <form [formGroup]="aporteForm" (ngSubmit)="onSubmit()">
+        <!-- Sección del socio -->
+        <fieldset>
+            <legend>Datos del Socio</legend>
+
+            <label for="apo_soc_id">Seleccione un Socio</label>
+            <select id="apo_soc_id" formControlName="apo_soc_id">
+                <option value="">-- Seleccione --</option>
+                <option *ngFor="let socio of socios" [value]="socio.soc_id">
+                    {{ socio.soc_nombres }} ({{ socio.soc_cedula }})
+                </option>
+            </select>
+            <div class="error" *ngIf="aporteForm.get('apo_soc_id')?.touched && aporteForm.get('apo_soc_id')?.invalid">
+                Campo obligatorio
+            </div>
+        </fieldset>
+
+
+        <!-- Sección de aporte -->
+        <fieldset>
+            <legend>Detalle del Aporte</legend>
+
+            <label for="apo_monto">Monto ($)</label>
+            <input type="text" id="apo_monto" formControlName="apo_monto" />
+            <div class="error" *ngIf="aporteForm.get('apo_monto')?.touched && aporteForm.get('apo_monto')?.invalid">
+                Ingrese un monto válido
+            </div>
+
+            <label for="apo_fecha">Fecha del Aporte</label>
+            <input type="date" id="apo_fecha" formControlName="apo_fecha" />
+            <div class="error" *ngIf="aporteForm.get('apo_fecha')?.touched && aporteForm.get('apo_fecha')?.invalid">
+                Campo obligatorio
+            </div>
+
+            <label for="apo_tipo">Tipo de Aporte</label>
+            <select id="apo_tipo" formControlName="apo_tipo">
+                <option value="">Seleccione un tipo</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Extraordinario">Extraordinario</option>
+                <option value="Retiro">Retiro</option>
+            </select>
+            <div class="error" *ngIf="aporteForm.get('apo_tipo')?.touched && aporteForm.get('apo_tipo')?.invalid">
+                Campo obligatorio
+            </div>
+        </fieldset>
+
+        <!-- Botón -->
+        <div class="buttons">
+            <button type="submit" [disabled]="aporteForm.invalid || loading">Guardar</button>
+        </div>
+
+        <!-- Mensajes -->
+        <div class="loading-msg" *ngIf="loading">Registrando aporte...</div>
+        <div class="success-msg" *ngIf="successMessage">{{ successMessage }}</div>
+        <div class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</div>
+    </form>
+</div>

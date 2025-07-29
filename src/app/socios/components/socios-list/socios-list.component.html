@@ -1,0 +1,41 @@
+<div class="container">
+    <h2>Listado de Socios</h2>
+
+    <div *ngIf="loading">Cargando socios...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <table *ngIf="!loading && socios.length" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Cédula</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Fecha Ingreso</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let socio of socios">
+                <td>{{ socio.soc_id }}</td>
+                <td>{{ socio.soc_nombres }}</td>
+                <td>{{ socio.soc_cedula }}</td>
+                <td>{{ socio.soc_telefono || '-' }}</td>
+                <td>{{ socio.soc_direccion || '-' }}</td>
+                <td>{{ socio.soc_fecha_ingreso }}</td>
+                <td>{{ socio.soc_estado }}</td>
+                <td>
+                    <button class="btn btn-sm btn-info" (click)="verDetalle(socio)"><i class="fa fa-eye"></i></button>
+                    <!-- <button class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="!loading && socios.length === 0">
+        No hay socios registrados.
+    </div>
+</div>

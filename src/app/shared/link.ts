@@ -1,0 +1,1 @@
+export const direccionApi = 'http://localhost:3000';

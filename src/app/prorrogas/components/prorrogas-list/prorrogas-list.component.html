@@ -1,0 +1,57 @@
+<div class="container">
+    <h2>Listado de Prórrogas</h2>
+
+    <div>
+        <label for="filtroEstado">Filtrar por estado:</label>
+        <select id="filtroEstado" [(ngModel)]="filtroEstado" (change)="aplicarFiltro()">
+            <option value="">Todos</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aprobada">Aprobada</option>
+            <option value="Rechazada">Rechazada</option>
+        </select>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Crédito</th>
+                <th>Fecha Solicitud</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+                <th>Fecha Aprobación</th>
+                <th>Días Concedidos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prorroga of filteredProrrogas">
+                <td>{{ prorroga.pro_id }}</td>
+                <td>{{ prorroga.pro_cre_id }}</td>
+                <td>{{ prorroga.pro_fecha_solicitud | date:'mediumDate' }}</td>
+                <td>{{ prorroga.pro_motivo }}</td>
+                <td>
+                    <span [ngClass]="{
+              'badge-pendiente': prorroga.pro_estado === 'Pendiente',
+              'badge-aprobada': prorroga.pro_estado === 'Aprobada',
+              'badge-rechazada': prorroga.pro_estado === 'Rechazada'
+            }">{{ prorroga.pro_estado }}</span>
+                </td>
+                <td>{{ prorroga.pro_fecha_aprobacion ? (prorroga.pro_fecha_aprobacion | date:'mediumDate') : '-' }}</td>
+                <td>{{ prorroga.pro_dias_concedidos }}</td>
+                <td>
+                    <button *ngIf="puedeMostrarAcciones(prorroga)" class="btn btn-info"
+                        (click)="aceptarProrroga(prorroga)">
+                        Aceptar
+                    </button>
+                    <button *ngIf="puedeMostrarAcciones(prorroga)" class="btn btn-danger"
+                        (click)="rechazarProrroga(prorroga)">
+                        Rechazar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <p *ngIf="message" class="error">{{ message }}</p> -->
+</div>

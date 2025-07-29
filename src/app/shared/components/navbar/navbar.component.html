@@ -1,0 +1,127 @@
+<aside class="sidebar">
+    <div class="brand">
+        <h1>Caja Comunal Balsalito</h1>
+    </div>
+
+    <nav class="nav">
+        <ul>
+            <!-- Inicio -->
+            <li>
+                <a routerLink="/dashboard">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+            </li>
+
+            <!-- Socios (ver o gestionar) -->
+            <li class="submenu" *ngIf="hasRole(['presidente', 'secretario', 'admin'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-users"></i> Socios
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/socios">Listado</a></li>
+                    <li *ngIf="hasRole(['secretario', 'admin'])"><a routerLink="/socios/nuevo">Registrar socio</a></li>
+                </ul>
+            </li>
+
+            <!-- Aportes -->
+            <li class="submenu" *ngIf="hasRole(['socio', 'presidente', 'secretario', 'admin'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-piggy-bank"></i> Aportes
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/aportes">Historial</a></li>
+                    <li *ngIf="hasRole(['secretario', 'admin'])"><a routerLink="/aportes/nuevo">Registrar aporte</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Préstamos -->
+            <li class="submenu" *ngIf="hasRole(['socio', 'auxiliar', 'secretario', 'admin'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-hand-holding-usd"></i> Préstamos
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/prestamos">Listado</a></li>
+                    <li *ngIf="hasRole(['secretario', 'admin'])"><a routerLink="/prestamos/nuevo">Nuevo préstamo</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Pagos -->
+            <li class="submenu" *ngIf="hasRole(['socio', 'secretario', 'admin'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-cash-register"></i> Pagos
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/pagos">Listado</a></li>
+                    <li><a *ngIf="hasRole(['secretario'])" routerLink="/pagos/nuevo">Nuevo pago</a></li>
+                </ul>
+            </li>
+
+            <!-- Multas -->
+            <li class="submenu" *ngIf="hasRole([ 'secretario'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-gavel"></i> Multas
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <!-- <li><a routerLink="/multas">Listado</a></li> -->
+                    <li><a *ngIf="hasRole(['secretario'])" routerLink="/multas/nuevo">Nueva multa</a></li>
+                </ul>
+            </li>
+
+            <!-- Prórrogas -->
+            <li class="submenu" *ngIf="hasRole([ 'secretario'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-clock"></i> Prórrogas
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/prorrogas">Listado</a></li>
+                    <li><a *ngIf="hasRole(['secretario'])" routerLink="/prorrogas/nuevo">Nueva prórroga</a></li>
+                </ul>
+            </li>
+
+            <!-- Reportes -->
+            <li class="submenu" *ngIf="hasRole(['presidente', 'secretario', 'admin'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-file-alt"></i> Reportes
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/reportes">Generales</a></li>
+                </ul>
+            </li>
+
+            <!-- Administración -->
+            <li class="submenu" *ngIf="hasRole(['admin'])">
+                <a (click)="toggleSubmenu($event)">
+                    <i class="fas fa-cogs"></i> Administración
+                    <i class="fas fa-chevron-down arrow"></i>
+                </a>
+                <ul>
+                    <li><a routerLink="/admin/usuarios">Usuarios</a></li>
+                </ul>
+            </li>
+
+            <!-- Perfil -->
+            <li *ngIf="userRole">
+                <a routerLink="/perfil">
+                    <i class="fas fa-user-circle"></i> Mi perfil
+                </a>
+            </li>
+
+            <!-- Logout -->
+            <li>
+                <a (click)="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+</aside>

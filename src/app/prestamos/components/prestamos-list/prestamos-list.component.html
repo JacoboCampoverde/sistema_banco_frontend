@@ -1,0 +1,91 @@
+<div class="container">
+    <h2>Listado de Préstamos</h2>
+
+    <div class="filtros-container">
+        <div>
+            <label>Fecha Inicio:</label>
+            <input type="date" (change)="setFiltroFechaInicio($event)" />
+        </div>
+        <div>
+            <label>Fecha Fin:</label>
+            <input type="date" (change)="setFiltroFechaFin($event)" />
+        </div>
+
+        <div *ngIf="rol === 'admin' || rol === 'soporte'">
+            <label>Socio:</label>
+            <select (change)="setFiltroSocioId($event)">
+                <option value="">Todos</option>
+                <option *ngFor="let socio of socios" [value]="socio.soc_id">{{ socio.soc_nombres }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Estado:</label>
+            <select (change)="setFiltroEstado($event)">
+                <option value="">Todos</option>
+                <option *ngFor="let estado of ['Pendiente', 'Activo', 'Cancelado', 'Mora', 'Rechazado']" [value]="estado">{{ estado
+                    }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <table *ngIf="prestamos && prestamos.length > 0; else noDataTpl">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Socio</th>
+                <th>Monto Solicitado</th>
+                <th>Fecha Solicitud</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prestamo of prestamosFiltrados$ | async">
+                <td>{{ prestamo.cre_id }}</td>
+                <td>{{ prestamo.socioNombre || 'Desconocido' }}</td>
+                <td>{{ prestamo.cre_monto_solicitado | currency:'USD' }}</td>
+                <td>{{ prestamo.cre_fecha_solicitud | date:'mediumDate' }}</td>
+                <td>{{ prestamo.cre_estado }}</td>
+                <td >
+                    <!-- Ver Detalle si el estado es aceptado -->
+                    <button class="btn btn-info back-btn" style="margin-top: 10px;" *ngIf="prestamo.cre_estado === 'Activo'" (click)="verDetalle(prestamo.cre_id!)">
+                        Ver Detalle
+                    </button>
+                    <a *ngIf="prestamo.cre_estado !== 'Pendiente' && prestamo.cre_estado !== 'Activo'">Sin Detalles</a>
+
+                    <!-- Aceptar/Rechazar si el estado es pendiente -->
+                    <button class="btn btn-info back-btn" style="margin-top: 10px;" *ngIf="prestamo.cre_estado === 'Pendiente' && (rol === 'admin' || rol === 'secretario')"
+                        (click)="abrirModal(prestamo.cre_id!)">Aceptar</button>
+
+                    <button class="btn btn-info back-btn" style="margin-top: 10px;" *ngIf="prestamo.cre_estado === 'Pendiente' && (rol === 'admin' || rol === 'secretario')" (click)="rechazarPrestamo(prestamo.cre_id!)">
+                        Rechazar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noDataTpl>
+        <p>No hay préstamos registrados.</p>
+    </ng-template>
+
+    <div class="modal" [class.visible]="mostrarModal" (click)="cerrarModal($event)">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h3>Aprobar Préstamo</h3>
+
+            <label for="monto">Monto Aprobado</label>
+            <input type="number" id="monto" [(ngModel)]="montoAprobado" required />
+
+            <label for="fecha">Fecha de Aprobación</label>
+            <input type="date" id="fecha" [(ngModel)]="fechaAprobacion" required />
+
+            <div class="modal-buttons">
+                <button (click)="confirmarAprobacion()">Aceptar</button>
+                <button (click)="cancelarModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

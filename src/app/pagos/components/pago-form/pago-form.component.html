@@ -1,0 +1,61 @@
+<div class="container">
+    <h2>Registrar Pago de Crédito</h2>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <div class="busqueda-cedula">
+        <label for="cedula">Buscar por Cédula</label>
+        <br>
+        <input id="cedula" [(ngModel)]="cedula" (keyup.enter)="buscarPorCedula()" placeholder="Ej. 0102030405" />
+        <button type="button" (click)="buscarPorCedula()">Buscar</button>
+    </div>
+
+    <div *ngIf="prestamos.length > 0">
+        <label for="prestamoSelect">Seleccionar Préstamo Aprobado *</label>
+        <select id="prestamoSelect" (change)="onPrestamoChange($event)">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let p of prestamos" [value]="p.cre_id">
+                #{{ p.cre_id }} - Monto: {{ p.cre_monto_aprobado | currency }} - Estado: {{ p.cre_estado }}
+            </option>
+        </select>
+    </div>
+
+    <div *ngIf="prestamoSeleccionado" style="margin-top: 1rem; padding: 1rem; background:#f4f6f8; border-radius:6px;">
+        <h3>Información del Préstamo Seleccionado</h3>
+        <p><strong>Cuotas pagadas:</strong> {{ infoPrestamo?.cuotasPagadas }} / {{ infoPrestamo?.totalCuotas }}</p>
+        <p><strong>Monto a pagar:</strong> {{ infoPrestamo?.montoAPagar }}</p>
+        <p><strong>Saldo restante:</strong> {{ infoPrestamo?.saldoRestante | currency }}</p>
+        <p><strong>Fecha próximo pago:</strong> {{ infoPrestamo?.fechaProximoPago || 'N/A' }}</p>
+    </div>
+
+    <form [formGroup]="pagoForm" (ngSubmit)="enviarPago()" style="margin-top: 1.5rem;">
+        <div>
+            <label for="pag_monto">Monto *</label><br />
+            <input id="pag_monto" type="number" formControlName="pag_monto" readondly />
+            <div *ngIf="enviado && pagoForm.controls['pag_monto'].invalid" style="color:red;">
+                Monto es obligatorio y mayor a 0.
+            </div>
+        </div>
+
+        <div>
+            <label for="pag_fecha">Fecha de Pago *</label><br />
+            <input id="pag_fecha" type="date" formControlName="pag_fecha" />
+            <div *ngIf="enviado && pagoForm.controls['pag_fecha'].invalid" style="color:red;">
+                Fecha es obligatoria.
+            </div>
+        </div>
+
+        <div>
+            <label for="pag_interes">Interés</label><br />
+            <input id="pag_interes" type="number" step="0.01" formControlName="pag_interes" readondly />
+        </div>
+
+        <div>
+            <label for="pag_abono_capital">Abono a Capital</label><br />
+            <input id="pag_abono_capital" type="number" step="0.01" formControlName="pag_abono_capital"
+                readondly />
+        </div>
+
+        <button type="submit" class="btn btn-info">Registrar Pago</button>
+    </form>
+</div>

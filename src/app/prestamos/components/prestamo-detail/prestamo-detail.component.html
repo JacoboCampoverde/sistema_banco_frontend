@@ -1,0 +1,98 @@
+<div class="container" *ngIf="prestamo; else loadingOrError">
+    <button class="btn btn-info back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Volver al listado
+    </button>
+
+    <h2>Detalle del Préstamo #{{ prestamo.cre_id }}</h2>
+
+    <div class="detail-wrapper">
+        <!-- Información General -->
+        <section class="detail-card section-general">
+            <h3>Información General</h3>
+            <div class="field"><label>Socio ID:</label> <span>{{ prestamo.cre_soc_id }}</span></div>
+            <div class="field"><label>Monto solicitado:</label> <span>{{ prestamo.cre_monto_solicitado | currency
+                    }}</span></div>
+            <div class="field"><label>Monto aprobado:</label>
+                <span>{{ prestamo.cre_monto_aprobado ? (prestamo.cre_monto_aprobado | currency) : 'No aprobado'
+                    }}</span>
+            </div>
+            <div class="field"><label>Plazo (meses):</label> <span>{{ prestamo.cre_plazo_meses }}</span></div>
+            <div class="field"><label>Tasa de interés:</label> <span>{{ prestamo.cre_tasa_interes }}%</span></div>
+            <div class="field"><label>Meses de Gracia:</label> <span>{{ prestamo.cre_meses_gracia }}</span></div>
+        </section>
+
+        <!-- Detalles de Pago -->
+        <section class="detail-card section-pago">
+            <h3>Detalles de Pago</h3>
+            <div class="field"><label>Forma de pago:</label> <span>{{ prestamo.cre_forma_pago }}</span></div>
+            <div class="field"><label>Estado:</label>
+                <span [ngClass]="{
+          'estado-activo': prestamo.cre_estado === 'Activo',
+          'estado-suspendido': prestamo.cre_estado === 'Pendiente',
+          'estado-expulsado': prestamo.cre_estado === 'Cancelado'
+        }">{{ prestamo.cre_estado }}</span>
+            </div>
+            <div class="field"><label>Fecha de solicitud:</label> <span>{{ prestamo.cre_fecha_solicitud | date }}</span>
+            </div>
+            <div class="field"><label>Fecha de aprobación:</label>
+                <span>{{ prestamo.cre_fecha_aprobacion ? (prestamo.cre_fecha_aprobacion | date) : 'No aprobada'
+                    }}</span>
+            </div>
+        </section>
+
+        <!-- Información Adicional -->
+        <section class="detail-card section-adicional">
+            <h3>Información Adicional</h3>
+            <div class="field"><label>Destino:</label> <span>{{ prestamo.cre_des_prestamo }}</span></div>
+            <div class="field"><label>Motivo:</label> <span>{{ prestamo.cre_motivo }}</span></div>
+            <div class="field"><label>Tipo garantía:</label> <span>{{ prestamo.cre_tipo_garantia }}</span></div>
+        </section>
+    </div>
+
+    <!-- Botón para ver tabla -->
+    <button class="btn btn-info back-btn" style="margin-top: 10px;" (click)="abrirModal()">📄 Ver Tabla de
+        Amortización</button>
+
+    <!-- MODAL -->
+    <div class="modal" *ngIf="mostrarTabla">
+        <div class="modal-content">
+            <span class="close" style="display: flex; align-items: end; justify-content: end;"
+                (click)="cerrarModal()">&times;</span>
+            <h3 style="margin-top: 1.5rem; color: #004481;">Tabla de Amortización</h3>
+
+            <button class="btn btn-info back-btn" style="margin-top: 10px;" (click)="descargarTablaAmortizacionPDF()"
+                [disabled]="!mostrarTabla">
+                Descargar tabla de amortización (PDF)
+            </button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cuota</th>
+                        <th>Fecha Pago</th>
+                        <th>Cuota Total</th>
+                        <th>Interés</th>
+                        <th>Capital</th>
+                        <th>Saldo Restante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fila of amortizacion">
+                        <td>{{ fila.numeroCuota }}</td>
+                        <td>{{ fila.fechaPago }}</td>
+                        <td>{{ fila.cuota }}</td>
+                        <td>{{ fila.interes }}</td>
+                        <td>{{ fila.capital }}</td>
+                        <td>{{ fila.saldo }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- LOADING / ERROR -->
+<ng-template #loadingOrError>
+    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+    <p class="loading" *ngIf="!errorMsg">Cargando detalle del préstamo...</p>
+</ng-template>

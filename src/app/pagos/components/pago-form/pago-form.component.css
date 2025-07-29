@@ -1,0 +1,137 @@
+.container {
+    max-width: 600px;
+    margin: 1.5rem auto;
+    background-color: #f7f9fc;
+    border: 1px solid #dfe6ec;
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #004481;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+h3 {
+    color: #004481;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input,
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input,
+select:focus {
+    border-color: #004481;
+    outline: none;
+}
+
+/* Botones */
+button {
+    background-color: #004481;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+button:hover:not(:disabled) {
+    background-color: #003366;
+}
+
+button:disabled {
+    background-color: #aac6e8;
+    cursor: not-allowed;
+}
+
+/* Mensajes de error */
+.error {
+    color: #c0392b;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Mensajes específicos de error en inputs */
+[style*="color:red"] {
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Contenedor para la búsqueda de cédula */
+.busqueda-cedula {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-end;
+    margin-bottom: 1.4rem;
+}
+
+.busqueda-cedula label {
+    flex-shrink: 0;
+    font-weight: 600;
+}
+
+.busqueda-cedula input {
+    flex: 1;
+}
+
+.busqueda-cedula button {
+    flex-shrink: 0;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.9rem;
+}
+
+/* Select de préstamos */
+select {
+    margin-bottom: 1rem;
+}
+
+/* Información del préstamo seleccionado */
+div[style*="background:#f4f6f8"] {
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+/* Inputs readonly estilo */
+input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Formulario */
+form>div {
+    margin-bottom: 1rem;
+}

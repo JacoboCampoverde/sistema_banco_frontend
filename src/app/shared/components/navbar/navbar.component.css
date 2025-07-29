@@ -1,0 +1,114 @@
+/* ====== Estilo Sidebar Caja Comunal (Estilo Banco Guayaquil o Pichincha) ====== */
+.sidebar {
+    width: 260px;
+    background-color: #f7f9fc; /* claro elegante */
+    color: #2c3e50; /* texto sobrio */
+    border-right: 1px solid #dfe6ec;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.04);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.sidebar .brand {
+    background-color: #ffffff;
+    padding: 1.2rem;
+    border-bottom: 1px solid #dfe6ec;
+    text-align: center;
+}
+
+.sidebar .brand h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #004481; /* estilo Banco Guayaquil */
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav ul li {
+    border-bottom: 1px solid #edf2f7;
+}
+
+.nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 0.95rem 1.3rem;
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.nav ul li a:hover {
+    background-color: #e8f0fe;
+    color: #004481;
+}
+
+.nav ul li a i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+/* Submenús */
+.submenu > a {
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.submenu ul {
+    display: none;
+    background-color: #f0f4f8;
+}
+
+.submenu.open ul {
+    display: block;
+}
+
+.submenu ul li a {
+    padding-left: 2.4rem;
+    font-size: 14px;
+    color: #37474f;
+}
+
+.submenu ul li a:hover {
+    background-color: #dbeafe;
+    color: #004481;
+}
+
+/* Flecha */
+.arrow {
+    margin-left: auto;
+    font-size: 12px;
+}
+
+/* Últimos botones (perfil, logout) */
+.nav ul li:last-child a {
+    border-bottom: none;
+    color: #c0392b;
+}
+
+.nav ul li:last-child a:hover {
+    background-color: #ffecec;
+}
+
+/* Scroll (si sidebar es largo) */
+.sidebar {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 transparent;
+}
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 4px;
+}

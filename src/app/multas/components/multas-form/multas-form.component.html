@@ -1,0 +1,84 @@
+<div class="container">
+    <h2>Registrar Multa</h2>
+
+    <form (ngSubmit)="crearMulta()">
+        <div *ngIf="error" class="error">{{ error }}</div>
+        <div *ngIf="mensaje" class="success-msg">{{ mensaje }}</div>
+
+        <!-- Fila: Cédula + Combo socios + Botón Limpiar -->
+        <div class="form-row">
+            <!-- Input de Cédula -->
+            <div class="form-group">
+                <label for="cedula">Buscar por Cédula</label>
+                <input type="text" id="cedula" [(ngModel)]="cedula" name="cedula" (blur)="buscarPorCedula()" />
+            </div>
+
+            <!-- Combo de Socios -->
+            <div class="form-group" style="margin-left: 4%;">
+                <label for="socioSelect">Seleccionar Socio</label>
+                <select id="socioSelect" name="socioSelect" [(ngModel)]="multa.mul_soc_id"
+                    (change)="onSeleccionarSocio(multa.mul_soc_id)">
+                    <option value="0">-- Seleccionar --</option>
+                    <option *ngFor="let s of socios" [value]="s.soc_id">
+                        {{ s.soc_nombres }} ({{ s.soc_cedula }})
+                    </option>
+                </select>
+            </div>
+
+            <!-- Botón Limpiar -->
+            <div class="form-group limpiar-btn">
+                <label>&nbsp;</label>
+                <button type="button" (click)="limpiarFormulario()">Limpiar</button>
+            </div>
+        </div>
+
+        <!-- Datos del socio -->
+        <div *ngIf="socioSeleccionado">
+            <h3>Datos del Socio</h3>
+            <p><strong>Nombre:</strong> {{ socioSeleccionado.soc_nombres }}</p>
+            <p><strong>Teléfono:</strong> {{ socioSeleccionado.soc_telefono || 'N/A' }}</p>
+            <p><strong>Dirección:</strong> {{ socioSeleccionado.soc_direccion || 'N/A' }}</p>
+            <p><strong>Estado:</strong> {{ socioSeleccionado.soc_estado }}</p>
+        </div>
+
+        <!-- Motivo (con opciones fijas) -->
+        <div>
+            <label for="motivo">Motivo</label>
+            <select id="motivo" [(ngModel)]="multa.mul_motivo" name="motivo" required>
+                <option value="" disabled selected>-- Seleccionar motivo --</option>
+                <option value="Falsificación de documentos">Falsificación de documentos</option>
+                <option value="Manipulación de información">Manipulación de información</option>
+                <option value="Conflictos de interés no declarados">Conflictos de interés no declarados</option>
+            </select>
+        </div>
+
+        <!-- Porcentaje -->
+        <div>
+            <label for="porcentaje">Porcentaje de la multa (%)</label>
+            <select id="porcentaje" [(ngModel)]="porcentajeSeleccionado" name="porcentaje"
+                (change)="onCambiarPorcentaje($event)">
+                <option [value]="5">5%</option>
+                <option [value]="10">10%</option>
+                <option [value]="15">15%</option>
+                <option [value]="20">20%</option>
+            </select>
+
+        </div>
+
+        <!-- Monto (calculado automáticamente) -->
+        <div>
+            <label for="monto">Monto</label>
+            <input type="number" step="0.01" id="monto" [value]="multa.mul_monto" name="monto" readonly />
+        </div>
+
+        <!-- Fecha -->
+        <div>
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" [(ngModel)]="multa.mul_fecha" name="fecha" required />
+        </div>
+
+        <div class="buttons">
+            <button type="submit">Registrar Multa</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,78 @@
+<div class="container">
+    <h2>Listado de Aportes y Débitos</h2>
+    <div class="filtros-container">
+        <div>
+            <label>Fecha Inicio:</label>
+            <input type="date" (change)="setFiltroFechaInicio($event)" />
+
+        </div>
+        <div>
+            <label>Fecha Fin:</label>
+            <input type="date" (change)="setFiltroFechaFin($event)" />
+
+        </div>
+
+        <div *ngIf="rol === 'admin' || rol === 'soporte'">
+            <label>Socio:</label>
+            <select (change)="setFiltroSocioId($event)">
+                <option value="">Todos</option>
+                <option *ngFor="let socio of socios" [value]="socio.soc_id">{{ socio.soc_nombres }}</option>
+            </select>
+
+        </div>
+
+        <div>
+            <label>Tipo:</label>
+            <select (change)="setFiltroTipo($event)">
+                <option value="">Todos</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Extraordinario">Extraordinario</option>
+            </select>
+
+        </div>
+
+        <button class="limpiar-filtros" (click)="limpiarFiltros()">Limpiar filtros</button>
+
+    </div>
+
+    <div class="resumen-cards" *ngIf="rol === 'socio'">
+        <div class="card-resumen deposito">
+            <h3>Total depositado</h3>
+            <p>{{ totalDepositos | currency:'USD' }}</p>
+        </div>
+        <div class="card-resumen retiro">
+            <h3>Total retirado/debitado</h3>
+            <p>{{ totalRetiros | currency:'USD' }}</p>
+        </div>
+        <div class="card-resumen saldo">
+            <h3>Saldo actual</h3>
+            <p>{{ saldoAportes | currency:'USD' }}</p>
+        </div>
+    </div>
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <table *ngIf="aportes && aportes.length > 0; else noDataTpl">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let aporte of aportesFiltrados$ | async" (click)="verDetalle(aporte.apo_id!)">
+                <td>{{ aporte.apo_id }}</td>
+                <td>{{ aporte.socioNombre || 'Desconocido' }}</td>
+                <td>{{ aporte.apo_monto | currency:'USD' }}</td>
+                <td>{{ aporte.apo_fecha | date:'mediumDate' }}</td>
+                <td>{{ aporte.apo_tipo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noDataTpl>
+        <p>No hay aportes registrados.</p>
+    </ng-template>
+</div>

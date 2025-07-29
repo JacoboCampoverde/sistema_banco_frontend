@@ -1,0 +1,148 @@
+<div class="container">
+    <h2>Reporte de Información Financiera</h2>
+
+    <!-- 🔷 NAVBAR DE SECCIONES -->
+    <nav class="report-navbar">
+        <button [class.active]="seccionActiva === 'cartera'" (click)="seccionActiva = 'cartera'">Resumen de
+            Cartera</button>
+        <button [class.active]="seccionActiva === 'morosos'" (click)="seccionActiva = 'morosos'">Créditos en
+            Mora</button>
+        <button [class.active]="seccionActiva === 'multas'" (click)="seccionActiva = 'multas'">Multas
+            Registradas</button>
+        <button [class.active]="seccionActiva === 'avales'" (click)="seccionActiva = 'avales'">Créditos
+            Avalados</button>
+    </nav>
+
+    <!-- 🔹 Resumen Cartera -->
+    <div *ngIf="seccionActiva === 'cartera'">
+        <h3>Resumen de Cartera</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Monto Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cartera">
+                    <td>{{ item.cre_estado }}</td>
+                    <td>{{ item.cantidad_creditos }}</td>
+                    <td>{{ item.monto_total | currency:'USD' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔹 Créditos en Mora -->
+    <div *ngIf="seccionActiva === 'morosos'">
+        <h3>Créditos en Mora</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Socio</th>
+                    <th>Nombre</th>
+                    <th>ID Crédito</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Días de atraso</th>
+                    <th>Interés de Mora</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of morosos">
+                    <td>{{ m.cre_soc_id }}</td>
+                    <td>{{ m.socioNombre }}</td>
+                    <td>{{ m.cre_id }}</td>
+                    <td>{{ m.cre_monto_aprobado | currency }}</td>
+                    <td>{{ m.cre_estado }}</td>
+                    <td>{{ m.morosidad?.diasRetraso }}</td>
+                    <td>{{ m.morosidad?.interesMora | currency }}</td>
+                    <td>
+                        <small *ngIf="m.morosidad?.mensajeComite" class="text-warning">
+                            {{ m.morosidad?.mensajeComite }}
+                        </small>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔹 Multas Globales -->
+    <div *ngIf="seccionActiva === 'multas'">
+        <h3>Multas Registradas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Socio</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of multasGlobales">
+                    <td>{{ m.soc_id }}</td>
+                    <td>{{ m.soc_nombres }}</td>
+                    <td>{{ m.mul_fecha | date }}</td>
+                    <td>{{ m.mul_monto | currency }}</td>
+                    <td>{{ m.mul_motivo }}</td>
+                    <td>
+                        <ng-container *ngIf="m.mul_estado === 'Pendiente'; else mostrarEstado">
+                            <button (click)="pagarMulta(m)" class="btn-pagar">
+                                Pagar
+                            </button>
+                        </ng-container>
+
+                        <ng-template #mostrarEstado>
+                            <span [ngClass]="{
+      'badge-pendiente': m.mul_estado === 'Pendiente',
+      'badge-aprobada': m.mul_estado === 'Activo',
+      'badge-rechazada': m.mul_estado === 'Cancelada'
+    }">{{ m.mul_estado }}</span>
+                        </ng-template>
+                    </td>
+
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 🔹 Créditos Avalados -->
+    <div *ngIf="seccionActiva === 'avales'">
+        <h3>Créditos Avalados</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Crédito</th>
+                    <th>Avalista</th>
+                    <th>Titular</th>
+                    <th>Fecha Solicitud</th>
+                    <th>Monto Solicitado</th>
+                    <th>Estado</th>
+                    <th>Motivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of avales">
+                    <td>{{ a.cre_id }}</td>
+                    <td>{{ a.avalista }}</td>
+                    <td>{{ a.titular }}</td>
+                    <td>{{ a.cre_fecha_solicitud | date }}</td>
+                    <td>{{ a.cre_monto_solicitado | currency:'USD':'symbol':'1.0-2' }}</td>
+                    <td>{{ a.cre_estado }}</td>
+                    <td>{{ a.cre_motivo }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ⚠️ Error -->
+    <div *ngIf="errorMsg" class="error">
+        ⚠️ {{ errorMsg }}
+    </div>
+</div>

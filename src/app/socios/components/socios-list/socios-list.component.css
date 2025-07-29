@@ -1,0 +1,92 @@
+/* ====== Estilo Tabla Listado de Socios ====== */
+.container {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+}
+
+h2 {
+    color: #004481;
+    /* azul Banco Guayaquil */
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f7f9fc;
+    /* claro elegante */
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #004481;
+    /* azul Banco Guayaquil */
+    color: white;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+thead th,
+tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dfe6ec;
+}
+
+tbody tr:hover {
+    background-color: #e8f0fe;
+    cursor: pointer;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.btn {
+    padding: 5px 8px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    border: none;
+    margin-right: 6px;
+    cursor: pointer;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-info {
+    background-color: #0074d9;
+}
+
+.btn-info:hover {
+    background-color: #005fa3;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+}
+
+.btn-warning:hover {
+    background-color: #b37408;
+}
+
+.btn-danger {
+    background-color: #c0392b;
+}
+
+.btn-danger:hover {
+    background-color: #82241f;
+}
+
+.error {
+    color: #c0392b;
+    font-weight: 600;
+    margin-top: 1rem;
+}

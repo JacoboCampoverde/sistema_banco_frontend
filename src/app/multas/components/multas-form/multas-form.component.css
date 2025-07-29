@@ -1,0 +1,153 @@
+.container {
+    max-width: 600px;
+    margin: 1.5rem auto;
+    background-color: #f7f9fc;
+    border: 1px solid #dfe6ec;
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #004481;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+fieldset {
+    border: 1px solid #dfe6ec;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.4rem;
+    background-color: #ffffff;
+}
+
+legend {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #004481;
+    padding: 0 0.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #004481;
+    outline: none;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    user-select: none;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+button {
+    background-color: #004481;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #aac6e8;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #003366;
+}
+
+.error {
+    color: #c0392b;
+    font-size: 0.85rem;
+    margin-top: -0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.error-msg {
+    background-color: #ffecec;
+    color: #c0392b;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.success-msg {
+    background-color: #e8f0fe;
+    color: #004481;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.loading-msg {
+    color: #004481;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Nueva regla para que cedula, select y limpiar estén en fila */
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 1.4rem;
+}
+
+.form-group {
+    flex: 1 1 30%;
+    min-width: 180px;
+}
+
+.limpiar-btn button {
+    width: 100%;
+}

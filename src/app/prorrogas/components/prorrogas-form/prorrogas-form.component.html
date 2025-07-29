@@ -1,0 +1,48 @@
+<form class="container" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Solicitud de Prórroga</h2>
+
+    <div class="form-row">
+        <div class="form-group" style="flex: 1 1 70%;">
+            <label for="cedula">Cédula del socio</label>
+            <input id="cedula" type="text" formControlName="cedula" placeholder="Ingrese cédula" />
+        </div>
+        <div class="form-group limpiar-btn" style="flex: 1 1 28%;">
+            <button type="button" (click)="buscarCreditosPorCedula()" [disabled]="isSubmitting">
+                Buscar créditos
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group" *ngIf="creditos.length > 0">
+        <label for="credito">Seleccione el crédito</label>
+        <select id="credito" formControlName="pro_cre_id">
+            <option value="" disabled>-- Seleccione --</option>
+            <option *ngFor="let credito of creditos" [value]="credito.cre_id">
+                {{ credito.cre_id }} - {{ credito.cre_monto_aprobado | currency }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="fechaSolicitud">Fecha de Solicitud</label>
+        <input id="fechaSolicitud" type="date" formControlName="pro_fecha_solicitud" />
+    </div>
+
+    <div class="form-group">
+        <label for="motivo">Motivo</label>
+        <textarea id="motivo" formControlName="pro_motivo" rows="4"
+            placeholder="Explique por qué solicita la prórroga"></textarea>
+        <small *ngIf="form.controls['pro_motivo'].invalid && form.controls['pro_motivo'].touched" class="error">
+            El motivo es obligatorio (mínimo 10 caracteres).
+        </small>
+    </div>
+
+    <div class="buttons">
+        <button type="submit" [disabled]="isSubmitting || form.invalid">
+            {{ isSubmitting ? 'Enviando...' : 'Enviar Solicitud' }}
+        </button>
+    </div>
+
+    <p class="success-msg" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+</form>

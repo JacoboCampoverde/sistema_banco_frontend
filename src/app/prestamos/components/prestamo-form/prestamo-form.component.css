@@ -1,0 +1,104 @@
+.container {
+    max-width: 600px;
+    margin: 1.5rem auto;
+    background-color: #f7f9fc;
+    border: 1px solid #dfe6ec;
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #004481;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+fieldset {
+    border: 1px solid #dfe6ec;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.4rem;
+    background-color: #ffffff;
+}
+
+legend {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #004481;
+    padding: 0 0.5rem;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #004481;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.required {
+    color: #c0392b;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+button {
+    background-color: #004481;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #aac6e8;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #003366;
+}
+
+.error {
+    color: #c0392b;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}

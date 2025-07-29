@@ -1,0 +1,99 @@
+<div class="container">
+    <h2>Formulario de Solicitud de Crédito</h2>
+    <form [formGroup]="prestamoForm" (ngSubmit)="onSubmit()">
+
+        <fieldset>
+            <legend>Datos del Socio</legend>
+            <label for="cre_soc_id">Socio <span class="required">*</span></label>
+            <select id="cre_soc_id" formControlName="cre_soc_id" (change)="onSocioSeleccionado($event)">
+                <option value="">-- Seleccione socio --</option>
+                <option *ngFor="let socio of socios" [value]="socio.soc_id">{{ socio.soc_nombres }}</option>
+            </select>
+            <div *ngIf="isInvalid('cre_soc_id')" class="error">Debe seleccionar un socio.</div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Detalles del Crédito</legend>
+
+            <label for="cre_monto_solicitado">Monto Solicitado (USD) <span class="required">*</span></label>
+            <input id="cre_monto_solicitado" type="number" [min]="montoMinimo" [max]="montoMaximo" step="0.01"
+                formControlName="cre_monto_solicitado" />
+
+            <div *ngIf="isInvalid('cre_monto_solicitado')" class="error">
+                El monto debe ser entre {{ montoMinimo | currency:'USD' }} y {{ montoMaximo | currency:'USD' }}.
+            </div>
+
+            <div class="info">
+                Aportado: {{ totalAportado | currency:'USD' }} —
+                Máximo préstamo permitido: {{ montoMaximo | currency:'USD' }}
+            </div>
+
+            <label for="cre_des_prestamo">Destino del préstamo <span class="required">*</span></label>
+            <select id="cre_des_prestamo" formControlName="cre_des_prestamo">
+                <option value="" disabled selected>Seleccione destino</option>
+                <option value="Agrícola">Agrícola</option>
+                <option value="Productivo">Productivo</option>
+                <option value="Comercial">Comercial</option>
+                <option value="Consumo">Consumo</option>
+            </select>
+
+            <label for="cre_plazo_meses">Plazo (meses) <span class="required">*</span></label>
+            <input id="cre_plazo_meses" type="number" min="3" max="12" formControlName="cre_plazo_meses" />
+            <div *ngIf="isInvalid('cre_plazo_meses')" class="error">
+                El plazo debe ser entre 3 y 12 meses.
+            </div>
+
+            <div *ngIf="permiteGracia()">
+                <label for="cre_meses_gracia">Meses de gracia (máx. 2)</label>
+                <input id="cre_meses_gracia" type="number" min="0" max="2" formControlName="cre_meses_gracia" />
+                <div *ngIf="!validarGracia()" class="error">
+                    Solo se permiten meses de gracia si el destino es agrícola o productivo.
+                </div>
+            </div>
+
+            <label for="cre_tasa_interes">Tasa de Interés (%)</label>
+            <input id="cre_tasa_interes" type="number" min="0" step="0.01" formControlName="cre_tasa_interes" />
+
+            <label for="cre_forma_pago">Forma de Pago <span class="required">*</span></label>
+            <select id="cre_forma_pago" formControlName="cre_forma_pago">
+                <option value="">-- Seleccione forma de pago --</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Bimestral">Cada 2 meses</option>
+            </select>
+            <div *ngIf="isInvalid('cre_forma_pago')" class="error">Debe seleccionar una forma de pago.</div>
+
+            <label for="cre_fecha_solicitud">Fecha de Solicitud <span class="required">*</span></label>
+            <input id="cre_fecha_solicitud" type="date" formControlName="cre_fecha_solicitud" />
+            <div *ngIf="isInvalid('cre_fecha_solicitud')" class="error">Debe ingresar una fecha válida.</div>
+
+            <label for="cre_motivo">Motivo</label>
+            <textarea id="cre_motivo" rows="3" formControlName="cre_motivo"
+                placeholder="Describa el motivo del crédito"></textarea>
+
+            <label for="cre_tipo_garantia">Garantía <span class="required">*</span></label>
+            <select id="cre_tipo_garantia" formControlName="cre_tipo_garantia" (change)="onGarantiaChange($event)">
+                <option value="" disabled selected>Seleccione una garantía</option>
+                <option value="Aval">Aval Solidario</option>
+                <option value="Herramientas">Herramientas</option>
+                <option value="Animales">Animales</option>
+                <option value="Maquinarias">Maquinarias</option>
+                <option value="Otros">Otros bienes</option>
+            </select>
+
+            <div *ngIf="esAvalSeleccionado">
+                <label for="aval_soc_id">Socio que será Aval <span class="required">*</span></label>
+                <select id="aval_soc_id" formControlName="aval_soc_id">
+                    <option value="">-- Seleccione socio aval --</option>
+                    <option *ngFor="let socio of sociosAvalDisponibles" [value]="socio.soc_id">
+                        {{ socio.soc_nombres }}
+                    </option>
+                </select>
+                <div *ngIf="avalError" class="error">Debe seleccionar un aval válido distinto del solicitante.</div>
+            </div>
+        </fieldset>
+
+        <div class="buttons">
+            <button type="submit" [disabled]="prestamoForm.invalid">Solicitar Crédito</button>
+        </div>
+    </form>
+</div>

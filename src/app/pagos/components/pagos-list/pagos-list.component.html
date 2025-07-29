@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Listado de Pagos</h2>
+
+  <div class="filtros-container mb-4">
+    <div>
+      <label>Fecha Inicio:</label>
+      <input type="date" (change)="setFiltroFechaInicio($event)" class="form-control" />
+    </div>
+    <div>
+      <label>Fecha Fin:</label>
+      <input type="date" (change)="setFiltroFechaFin($event)" class="form-control" />
+    </div>
+    <div *ngIf="isAdmin">
+      <label>ID Crédito:</label>
+      <select (change)="setFiltroSocioId($event)" class="form-control">
+        <option value="">Todos</option>
+        <option *ngFor="let pago of pagos" [value]="pago.pag_cre_id">{{ pago.pag_cre_id }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-muted">Cargando pagos...</div>
+
+  <ng-container *ngIf="pagosFiltrados$ | async as pagosFiltrados">
+
+    <table class="table table-striped table-hover" *ngIf="pagosFiltrados.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Crédito</th>
+          <th>Fecha</th>
+          <th>Monto</th>
+          <th>Interés</th>
+          <th>Abono Capital</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pago of pagosFiltrados">
+          <td>{{ pago.pag_id }}</td>
+          <td>{{ pago.pag_cre_id }}</td>
+          <td>{{ pago.pag_fecha }}</td>
+          <td>{{ pago.pag_monto | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ pago.pag_interes | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ pago.pag_abono_capital | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="pagosFiltrados.length === 0" class="text-muted">
+      No hay pagos registrados.
+    </div>
+
+  </ng-container>
+</div>

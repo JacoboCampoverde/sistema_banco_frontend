@@ -1,0 +1,154 @@
+/* ====== Estilo Detalle Socio similar al Sidebar Caja Comunal ====== */
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px 24px;
+    background-color: #f7f9fc;
+    /* fondo claro elegante */
+    border: 1px solid #dfe6ec;
+    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    /* texto sobrio */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+h2 {
+    color: #004481;
+    /* estilo Banco Guayaquil */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #dfe6ec;
+    padding-bottom: 6px;
+}
+
+/* Botón volver */
+.btn.btn-info.back-btn {
+    background-color: #004481;
+    border-color: #004481;
+    color: #f7f9fc;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn.btn-info.back-btn:hover {
+    background-color: #003366;
+    border-color: #003366;
+}
+
+/* Error mensaje */
+.error {
+    color: #c0392b;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #c0392b;
+    border-radius: 4px;
+    background-color: #ffecec;
+}
+
+/* Wrapper de las secciones */
+.detail-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+/* Cada mini tarjeta */
+.detail-card {
+    flex: 1 1 280px;
+    background-color: #ffffff;
+    border: 1px solid #dfe6ec;
+    border-radius: 6px;
+    padding: 20px 24px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título de cada tarjeta */
+.detail-card h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #004481;
+    border-bottom: 1px solid #dfe6ec;
+    padding-bottom: 6px;
+}
+
+/* Campos dentro de la tarjeta */
+.field {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.field:last-child {
+    border-bottom: none;
+}
+
+label {
+    font-weight: 600;
+    color: #2c3e50;
+    width: 45%;
+}
+
+span {
+    width: 55%;
+    color: #37474f;
+    word-wrap: break-word;
+}
+
+/* Estados con colores diferenciados */
+.estado-activo {
+    color: #27ae60;
+    font-weight: 700;
+}
+
+.estado-suspendido {
+    color: #f39c12;
+    font-weight: 700;
+}
+
+.estado-expulsado {
+    color: #c0392b;
+    font-weight: 700;
+}
+
+/* Roles estilo "pill" */
+.roles-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.role-pill {
+    background-color: #e8f0fe;
+    color: #004481;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    user-select: none;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.04);
+}
+
+/* Loading */
+.loading {
+    font-size: 1.1rem;
+    color: #004481;
+    font-weight: 600;
+    padding: 2rem;
+    text-align: center;
+}

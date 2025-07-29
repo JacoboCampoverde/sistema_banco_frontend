@@ -1,0 +1,58 @@
+<div class="container">
+    <h2>Listado de Usuarios</h2>
+
+    <div class="filtros-container">
+        <div>
+            <label>Rol:</label>
+            <select (change)="filtrarPorRol($event)">
+                <option value="">Todos</option>
+                <option *ngFor="let rol of rolesDisponibles">{{ rol }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Estado:</label>
+            <select (change)="filtrarPorEstado($event)">
+                <option value="">Todos</option>
+                <option *ngFor="let estado of estadosDisponibles">{{ estado }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Buscar por nombre:</label>
+            <input type="text" [(ngModel)]="busquedaNombre" (input)="filtrarPorNombre()"
+                placeholder="Ej. Pedro Gómez" />
+        </div>
+    </div>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <table *ngIf="usuariosFiltrados.length > 0; else sinUsuariosTpl">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Correo</th>
+                <th>Socio</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
+                <th>Rol</th>
+                <th>Ingreso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of usuariosFiltrados">
+                <td>{{ usuario.usu_id }}</td>
+                <td>{{ usuario.usu_email }}</td>
+                <td>{{ usuario.Socio.soc_nombres }}</td>
+                <td>{{ usuario.Socio.soc_telefono }}</td>
+                <td>{{ usuario.Socio.soc_estado }}</td>
+                <td>{{ usuario.Socio.soc_roles.join(', ') || '—' }}</td>
+                <td>{{ usuario.Socio.soc_fecha_ingreso | date:'mediumDate' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #sinUsuariosTpl>
+        <p>No hay usuarios registrados.</p>
+    </ng-template>
+</div>

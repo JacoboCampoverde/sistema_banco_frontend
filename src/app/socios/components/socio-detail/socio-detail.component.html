@@ -1,0 +1,82 @@
+<div class="container" *ngIf="!loading; else loadingTpl">
+    <button class="btn btn-info back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Volver al listado
+    </button>
+
+    <h2>Detalle del Socio</h2>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <div *ngIf="socio" class="detail-wrapper">
+        <!-- Información Personal -->
+        <section class="detail-card section-personal">
+            <h3>Información Personal</h3>
+            <div class="field">
+                <label>Nombre completo:</label>
+                <span>{{ socio.soc_nombres }}</span>
+            </div>
+            <div class="field">
+                <label>Cédula:</label>
+                <span>{{ socio.soc_cedula }}</span>
+            </div>
+            <div class="field">
+                <label>Teléfono:</label>
+                <span>{{ socio.soc_telefono || '-' }}</span>
+            </div>
+            <div class="field">
+                <label>Dirección:</label>
+                <span>{{ socio.soc_direccion || '-' }}</span>
+            </div>
+        </section>
+
+        <!-- Información de Socio -->
+        <section class="detail-card section-socio">
+            <h3>Datos como Socio</h3>
+            <div class="field">
+                <label>Fecha de ingreso:</label>
+                <span>{{ socio.soc_fecha_ingreso | date:'longDate' }}</span>
+            </div>
+            <div class="field">
+                <label>Estado:</label>
+                <span [ngClass]="{
+            'estado-activo': socio.soc_estado === 'Activo',
+            'estado-suspendido': socio.soc_estado === 'Suspendido',
+            'estado-expulsado': socio.soc_estado === 'Expulsado'
+          }">{{ socio.soc_estado }}</span>
+            </div>
+            <div class="field">
+                <label>Aceptó reglamento:</label>
+                <span>{{ socio.soc_acepto_reglamento ? 'Sí' : 'No' }}</span>
+            </div>
+            <div class="field">
+                <label>Tiempo como socio:</label>
+                <span>{{ socio.soc_tiempo_como_socio }} meses</span>
+            </div>
+        </section>
+
+        <!-- Información Económica -->
+        <section class="detail-card section-economica">
+            <h3>Información Económica</h3>
+            <div class="field">
+                <label>Aporte inicial:</label>
+                <span>{{ socio.soc_aporte_inicial | currency:'USD' }}</span>
+            </div>
+            <div class="field">
+                <label>Acumulado aportes:</label>
+                <span>{{ socio.soc_acumulado_aportes | currency:'USD' }}</span>
+            </div>
+        </section>
+
+        <!-- Roles -->
+        <section class="detail-card section-roles">
+            <h3>Roles asignados</h3>
+            <div class="field roles-list">
+                <span *ngFor="let rol of socio.soc_roles" class="role-pill">{{ rol }}</span>
+            </div>
+        </section>
+    </div>
+</div>
+
+<ng-template #loadingTpl>
+    <div class="loading">Cargando datos del socio...</div>
+</ng-template>

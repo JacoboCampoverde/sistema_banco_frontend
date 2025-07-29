@@ -1,0 +1,10 @@
+<div [ngClass]="{'layout-wrapper-logged': loggeado, 'layout-wrapper-unlogged': !loggeado}">
+    <div class="main-content" *ngIf="loggeado">
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+    </div>
+
+    <router-outlet *ngIf="!loggeado"></router-outlet>
+
+    <app-footer *ngIf="loggeado"></app-footer>
+</div>

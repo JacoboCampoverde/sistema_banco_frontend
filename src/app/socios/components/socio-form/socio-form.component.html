@@ -1,0 +1,93 @@
+<div class="container">
+    <h2>Crear Nuevo Socio</h2>
+
+    <form [formGroup]="socioForm" (ngSubmit)="onSubmit()">
+
+        <fieldset class="section-personal">
+            <legend>Información Personal</legend>
+
+            <label>
+                Nombres*:
+                <input formControlName="nombres" type="text" placeholder="Nombre completo" />
+            </label>
+            <div *ngIf="socioForm.get('nombres')?.invalid && socioForm.get('nombres')?.touched" class="error">
+                El nombre es obligatorio y debe tener al menos 3 caracteres.
+            </div>
+
+            <label>
+                Cédula*:
+                <input formControlName="cedula" type="text" placeholder="Número de cédula" />
+            </label>
+            <div *ngIf="socioForm.get('cedula')?.invalid && socioForm.get('cedula')?.touched" class="error">
+                La cédula es obligatoria y debe tener al menos 5 caracteres.
+            </div>
+
+            <label>
+                Teléfono:
+                <input formControlName="telefono" type="text" placeholder="Teléfono (opcional)" />
+            </label>
+
+            <label>
+                Dirección:
+                <input formControlName="direccion" type="text" placeholder="Dirección (opcional)" />
+            </label>
+
+            <label>
+                Roles:
+                <select formControlName="roles">
+                    <option value="socio">Socio</option>
+                    <option value="presidente">Presidente</option>
+                    <option value="secretario">Secretario</option>
+                    <option value="admin">Admin</option>
+                    <option value="auxiliar">Auxiliar</option>
+                </select>
+            </label>
+
+            <label class="checkbox-label">
+                <input type="checkbox" formControlName="acepto_reglamento" />
+                Acepto el reglamento*
+            </label>
+            <div *ngIf="socioForm.get('acepto_reglamento')?.invalid && socioForm.get('acepto_reglamento')?.touched"
+                class="error">
+                Debe aceptar el reglamento.
+            </div>
+        </fieldset>
+
+        <fieldset class="section-usuario">
+            <legend>Datos de Usuario</legend>
+
+            <label>
+                Email*:
+                <input formControlName="email" type="email" placeholder="Correo electrónico" />
+            </label>
+            <div *ngIf="socioForm.get('email')?.invalid && socioForm.get('email')?.touched" class="error">
+                Ingrese un email válido.
+            </div>
+
+            <label>
+                Contraseña*:
+                <input formControlName="password" type="password" placeholder="Contraseña" />
+            </label>
+            <div *ngIf="socioForm.get('password')?.invalid && socioForm.get('password')?.touched" class="error">
+                La contraseña es obligatoria y debe tener al menos 6 caracteres.
+            </div>
+
+            <label>
+                Confirmar Contraseña*:
+                <input formControlName="confirmarPassword" type="password" placeholder="Confirmar contraseña" />
+            </label>
+            <div *ngIf="!passwordsMatch() && socioForm.get('confirmarPassword')?.touched" class="error">
+                Las contraseñas no coinciden.
+            </div>
+        </fieldset>
+
+        <div class="buttons">
+            <button type="submit" [disabled]="loading">Guardar</button>
+        </div>
+
+    </form>
+
+    <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+    <div *ngIf="loading" class="loading-msg">Guardando socio...</div>
+</div>

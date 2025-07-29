@@ -1,0 +1,71 @@
+<div class="perfil-container" *ngIf="socio; else loadingOrError">
+    <h2 class="perfil-heading">Resumen del Perfil</h2>
+
+    <div class="perfil-grid">
+
+        <!-- Información personal -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">
+                    <!-- User Icon -->
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                    </svg>
+                </span>
+                <h3>Información personal</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Nombre:</strong> {{ socio.soc_nombres }}</p>
+                <p><strong>Cédula:</strong> {{ socio.soc_cedula }}</p>
+                <p><strong>Teléfono:</strong> {{ socio.soc_telefono || 'No registrado' }}</p>
+                <p><strong>Dirección:</strong> {{ socio.soc_direccion || 'No registrada' }}</p>
+                <p><strong>Fecha de ingreso:</strong> {{ socio.soc_fecha_ingreso | date }}</p>
+                <p><strong>Estado:</strong> {{ socio.soc_estado }}</p>
+            </div>
+        </div>
+
+        <!-- Aportes -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">
+                    <!-- Money Icon -->
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M2 6v12h20V6H2zm18 10H4V8h16v8zm-4-5h-2v2h-2v-2H8v-2h2V9h2v2h2v2z" />
+                    </svg>
+                </span>
+                <h3>Detalle de aportes</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Aporte inicial:</strong> ${{ socio.soc_aporte_inicial | number:'1.2-2' }}</p>
+                <p><strong>Acumulado de aportes:</strong> ${{ socio.soc_acumulado_aportes | number:'1.2-2' }}</p>
+                <p><strong>Tiempo como socio:</strong> {{ socio.soc_tiempo_como_socio }} meses</p>
+            </div>
+        </div>
+
+        <!-- Roles y reglamento -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">
+                    <!-- Shield Icon -->
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l8 4v6c0 5.3-3.8 10.3-8 12-4.2-1.7-8-6.7-8-12V6l8-4z" />
+                    </svg>
+                </span>
+                <h3>Configuración de cuenta</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Roles:</strong> {{ socio.soc_roles.join(', ') }}</p>
+                <p><strong>Aceptó reglamento:</strong> {{ socio.soc_acepto_reglamento ? 'Sí' : 'No' }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #loadingOrError>
+    <div class="loading-container">
+        <p *ngIf="error" class="error">{{ error }}</p>
+        <p *ngIf="!error">Cargando datos del perfil...</p>
+    </div>
+</ng-template>
